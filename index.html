@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Refactored Input Form</title>
+    <title>Clean Input Form</title>
     <style>
-        /* Unique CSS Selectors */
+        .form-wrapper-class {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+        }
+
         .input-field-class {
             width: 300px;
             padding: 10px;
@@ -12,6 +18,15 @@
             border: 2px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
+            color: #333;
+        }
+
+        .input-field-class::before {
+            content: '';
+        }
+
+        .input-field-class::placeholder {
+            color: transparent;
         }
 
         .submit-button-class {
@@ -24,15 +39,33 @@
             cursor: pointer;
         }
 
-        .form-wrapper-class {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 100px;
-        }
-
         .submit-button-class:hover {
             background-color: #45a049;
+        }
+
+        /* Simulated placeholder using a label */
+        .input-wrapper {
+            position: relative;
+        }
+
+        .custom-label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            color: #aaa;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.2s;
+        }
+
+        .input-field-class:focus + .custom-label,
+        .input-field-class:not(:placeholder-shown) + .custom-label {
+            top: -12px;
+            left: 8px;
+            font-size: 12px;
+            color: #555;
+            background: white;
+            padding: 0 4px;
         }
     </style>
 </head>
@@ -41,27 +74,32 @@
         id="formWrapperId"
         name="formWrapperName"
         class="form-wrapper-class">
-        
-        <input
-            type="text"
-            id="inputFieldId"
-            name="inputFieldName"
-            class="input-field-class"
-            placeholder="Enter something..." />
+
+        <div class="input-wrapper">
+            <input
+                type="text"
+                id="inputFieldId"
+                name="inputFieldName"
+                class="input-field-class"
+                autocomplete="off"
+                aria-hidden="true" />
+
+            <label for="inputFieldId" class="custom-label">Type here...</label>
+        </div>
 
         <button
             id="submitButtonId"
             name="submitButtonName"
             class="submit-button-class"
             onclick="handleSubmit()">
-            Submit
+            Confirm
         </button>
     </div>
 
     <script>
         function handleSubmit() {
             const input = document.getElementById('inputFieldId').value;
-            alert("You entered: " + input);
+            alert("Input: " + input);
         }
     </script>
 </body>
