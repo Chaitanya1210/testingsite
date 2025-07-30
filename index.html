@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stealth Form</title>
+    <title>Clean Input Form</title>
     <style>
-        .form-wrapper {
+        .form-wrapper-class {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 100px;
         }
 
-        .custom-input {
+        .input-field-class {
             width: 300px;
             padding: 10px;
             margin: 20px;
@@ -19,11 +19,17 @@
             border-radius: 4px;
             font-size: 16px;
             color: #333;
-            background-color: white;
-            outline: none;
         }
 
-        .custom-button {
+        .input-field-class::before {
+            content: '';
+        }
+
+        .input-field-class::placeholder {
+            color: transparent;
+        }
+
+        .submit-button-class {
             padding: 10px 20px;
             background-color: #4CAF50;
             border: none;
@@ -31,17 +37,35 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
-            text-align: center;
         }
 
-        .custom-button:hover {
+        .submit-button-class:hover {
             background-color: #45a049;
         }
 
-        /* Make the div act like an input (UX) */
-        [contenteditable="true"]:empty::before {
-            content: attr(data-placeholder);
+        /* Simulated placeholder using a label */
+        .input-wrapper {
+            position: relative;
+        }
+
+        .custom-label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
             color: #aaa;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.2s;
+        }
+
+        .input-field-class:focus + .custom-label,
+        .input-field-class:not(:placeholder-shown) + .custom-label {
+            top: -12px;
+            left: 8px;
+            font-size: 12px;
+            color: #555;
+            background: white;
+            padding: 0 4px;
         }
     </style>
 </head>
@@ -49,35 +73,33 @@
     <div
         id="formWrapperId"
         name="formWrapperName"
-        class="form-wrapper">
+        class="form-wrapper-class">
 
-        <!-- Simulated input using a contenteditable div -->
-        <div
-            id="textEntryId"
-            name="textEntryName"
-            class="custom-input"
-            contenteditable="true"
-            role="textbox"
-            data-placeholder="Type here..."
-            aria-label="Input field">
+        <div class="input-wrapper">
+            <input
+                type="text"
+                id="inputFieldId"
+                name="inputFieldName"
+                class="input-field-class"
+                autocomplete="off"
+                aria-hidden="true" />
+
+            <label for="inputFieldId" class="custom-label">Type here...</label>
         </div>
 
-        <!-- Simulated button using a styled div -->
-        <div
-            id="confirmButtonId"
-            name="confirmButtonName"
-            class="custom-button"
-            role="button"
-            tabindex="0"
+        <button
+            id="submitButtonId"
+            name="submitButtonName"
+            class="submit-button-class"
             onclick="handleSubmit()">
             Confirm
-        </div>
+        </button>
     </div>
 
     <script>
         function handleSubmit() {
-            const inputText = document.getElementById('textEntryId').innerText.trim();
-            alert("Input: " + inputText);
+            const input = document.getElementById('inputFieldId').value;
+            alert("Input: " + input);
         }
     </script>
 </body>
