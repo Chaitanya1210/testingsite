@@ -1,11 +1,11 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Simple Input Form</title>
+    <title>Refactored Input Form</title>
     <style>
-        /* CSS selectors for styling and automation */
-        #inputFieldUpdated {
+        /* Unique CSS Selectors */
+        .input-field-class {
             width: 300px;
             padding: 10px;
             margin: 20px;
@@ -14,7 +14,7 @@
             font-size: 16px;
         }
 
-        #submitButtonUpdated {
+        .submit-button-class {
             padding: 10px 20px;
             background-color: #4CAF50;
             border: none;
@@ -24,31 +24,35 @@
             cursor: pointer;
         }
 
-        .form-container {
+        .form-wrapper-class {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 100px;
         }
 
-        #submitButton:hover {
+        .submit-button-class:hover {
             background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="form-container" id="formContainer" name="formContainer">
+    <div
+        id="formWrapperId"
+        name="formWrapperName"
+        class="form-wrapper-class">
+        
         <input
             type="text"
-            id="inputFieldUpdated"
-            name="inputFieldUpdated"
-            class="input-class"
+            id="inputFieldId"
+            name="inputFieldName"
+            class="input-field-class"
             placeholder="Enter something..." />
 
         <button
-            id="submitButtonUpdated"
-            name="submitButtonUpdated"
-            class="button-class"
+            id="submitButtonId"
+            name="submitButtonName"
+            class="submit-button-class"
             onclick="handleSubmit()">
             Submit
         </button>
@@ -56,7 +60,7 @@
 
     <script>
         function handleSubmit() {
-            const input = document.getElementById('inputField').value;
+            const input = document.getElementById('inputFieldId').value;
             alert("You entered: " + input);
         }
     </script>
